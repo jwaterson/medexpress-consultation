@@ -34,7 +34,18 @@ To run this application locally, please follow the following steps:
 ```
 git clone <repository-url>
 ```
-
+2. Navigate to the project root:
+```shell
+cd medexpress-consultation
+```
+3. Build the project:
+```shell
+mvn clean install
+```
+4. Run the project:
+```shell
+mvn spring-boot:run
+```
 
 ## Ideas for Extension
 
