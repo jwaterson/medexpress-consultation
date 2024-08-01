@@ -5,14 +5,14 @@
 A service which serves the backend of MedExpress's consultation process.
 
 The consultation process comprises the following steps:
-1. a user is asked a series of questions relating to a condition they are experiencing to determine their eligibility for a medicine used to treat said condition.
-2. the answers they provide then inform a response served to the frontend indicating whether they are eligible for medication.
+1. A user is asked a series of questions relating to a condition they are experiencing to determine their eligibility for a medicine used to treat said condition.
+2. The answers they provide then inform a response served to the frontend indicating whether they are eligible for medication.
 
 ## Requirements
 
-* Java 17
-* Maven
-* A desire to remedy your condition!
+- Java 17
+- Maven
+- A desire to remedy your condition!
 
 ## Tech
 
@@ -36,3 +36,8 @@ git clone <repository-url>
 ```
 
 
+## Ideas for Extension
+
+Tooling for CRUD ops on:
+- questions
+- conditions
