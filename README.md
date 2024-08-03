@@ -8,6 +8,30 @@ The consultation process comprises the following steps:
 1. A user is asked a series of questions relating to a condition they are experiencing to determine their eligibility for a medicine used to treat said condition.
 2. The answers they provide then inform a response served to the frontend indicating whether they are eligible for medication.
 
+The following, abridged sequence diagram shows the broader subsection of the process relevant to this 
+service. The interactions actually performed by this service are highlighted in green: 
+
+```mermaid
+sequenceDiagram
+  participant Customer
+  participant WebApp as Web/Mobile App
+  participant Backend as Backend Service
+
+  Customer ->> WebApp: Clicks "Start Consultation"
+  rect rgba(0, 255, 0, 0.1)
+  WebApp ->> Backend: GET /questions/{condition}
+  Backend ->> WebApp: Returns List of Questions
+  end
+  WebApp ->> Customer: Displays Questions
+  Customer ->> WebApp: Submits Answers
+  rect rgba(0, 255, 0, 0.1)
+  WebApp ->> Backend: POST /consultation (with Answers)
+  Backend ->> Backend: Processes Answers
+  Backend ->> WebApp: Returns Eligibility Status
+  end
+  WebApp ->> Customer: Displays Eligibility Status
+```
+
 ## Requirements
 
 - Java 17
