@@ -31,9 +31,9 @@ public class ConsultationController {
     this.consultationResultService = consultationResultService;
   }
 
-  @GetMapping("/{condition}/questions")
-  public ResponseEntity<List<QuestionDTO>> getQuestionsByCondition(@PathVariable String condition) {
-    return new ResponseEntity<>(questionService.getQuestionsByConditionName(condition),
+  @GetMapping("/{conditionId}/questions")
+  public ResponseEntity<List<QuestionDTO>> getQuestionsByCondition(@PathVariable Long conditionId) {
+    return new ResponseEntity<>(questionService.getQuestionsByConditionId(conditionId),
         HttpStatus.OK);
   }
 

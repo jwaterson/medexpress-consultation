@@ -7,11 +7,13 @@ public class QuestionDTO {
   private final Long id;
   private final String text;
   private final String type;
+  private final Long conditionId;
 
   public QuestionDTO(Question question) {
     this.id = question.getId();
     this.text = question.getText();
     this.type = question.getType().getType();
+    this.conditionId = question.getConditionId();
   }
 
   public Long getId() {
@@ -27,4 +29,7 @@ public class QuestionDTO {
     return type;
   }
 
+  public Long getConditionName() {
+    return conditionId;
+  }
 }

@@ -19,18 +19,21 @@ public class Question {
   private String text;
   @Enumerated
   private QuestionType type;
+  private Long conditionId;
 
   public Question() {
   }
 
-  public Question(String text, QuestionType type) {
+  public Question(String text, QuestionType type, Long conditionId) {
     this.text = text;
     this.type = type;
+    this.conditionId = conditionId;
   }
 
   public Question(QuestionDTO dto) {
     this.text = dto.getText();
     this.type = QuestionType.valueOf(dto.getType());
+    this.conditionId = dto.getConditionName();
   }
 
   public Long getId() {
@@ -41,15 +44,12 @@ public class Question {
     return text;
   }
 
-  public void setText(String text) {
-    this.text = text;
-  }
-
   public QuestionType getType() {
     return type;
   }
 
-  public void setType(QuestionType type) {
-    this.type = type;
+
+  public Long getConditionId() {
+    return conditionId;
   }
 }

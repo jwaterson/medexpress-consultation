@@ -16,8 +16,6 @@ public class Condition {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  @OneToMany
-  private List<Question> questions;
 
   public Long getId() {
     return id;
@@ -31,11 +29,4 @@ public class Condition {
     this.name = name;
   }
 
-  public List<Question> getQuestions() {
-    return questions;
-  }
-
-  public void setQuestions(List<Question> questions) {
-    this.questions = questions;
-  }
 }
