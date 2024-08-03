@@ -2,18 +2,20 @@ package com.medexpressconsultation.model.question;
 
 import com.medexpressconsultation.dto.QuestionDTO;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
  * A question asked as part of a consultation.
  */
-@Embeddable
+@Entity
 public class Question {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String text;
   @Enumerated

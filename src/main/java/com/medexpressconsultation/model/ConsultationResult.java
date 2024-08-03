@@ -4,6 +4,7 @@ import com.medexpressconsultation.dto.ConsultationResultDTO;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class ConsultationResult {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @ElementCollection
   private List<Answer> answers;

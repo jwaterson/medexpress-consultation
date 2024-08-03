@@ -92,7 +92,7 @@ mvn spring-boot:run
 
 ## Ideas for Extension
 
-1. Save partial consultation result if form abandoned before submission. This may require 
+1. Save partial consultation result if form abandoned before submission. This of course, may require 
 reauthentication for resumption.
 2. Tooling for support users to perform CRUD ops on:
    1. conditions (inc. questions)

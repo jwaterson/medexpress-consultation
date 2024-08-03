@@ -8,7 +8,6 @@ public enum QuestionType {
   CURRENT_SYMPTOMS("Symptoms"),
   GENERAL("General");
 
-
   private final String type;
 
   QuestionType(String type) {

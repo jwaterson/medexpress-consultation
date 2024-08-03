@@ -4,6 +4,7 @@ import com.medexpressconsultation.model.question.Question;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class Condition {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
   @ElementCollection
