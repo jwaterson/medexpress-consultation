@@ -1,7 +1,6 @@
 package com.medexpressconsultation.model.question;
 
 import com.medexpressconsultation.dto.QuestionDTO;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
