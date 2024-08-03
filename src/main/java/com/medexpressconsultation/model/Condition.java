@@ -17,10 +17,6 @@ public class Condition {
   @ElementCollection
   private List<Question> questions;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
   public Long getId() {
     return id;
   }
