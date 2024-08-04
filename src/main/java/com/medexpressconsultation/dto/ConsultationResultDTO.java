@@ -15,6 +15,7 @@ public class ConsultationResultDTO {
   /**
    * Required for jackson instantiation
    */
+  @SuppressWarnings("unused")
   public ConsultationResultDTO() {
   }
 

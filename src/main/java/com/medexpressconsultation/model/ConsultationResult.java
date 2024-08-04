@@ -24,6 +24,7 @@ public class ConsultationResult {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @SuppressWarnings("JpaDataSourceORMInspection")
   @ElementCollection
   @CollectionTable(name = "answer", joinColumns = @JoinColumn(name = "consultation_id"))
   private List<Answer> answers;
