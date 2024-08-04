@@ -28,6 +28,8 @@ public class ConsultationResult {
   @ElementCollection
   @CollectionTable(name = "answer", joinColumns = @JoinColumn(name = "consultation_id"))
   private List<Answer> answers;
+  private String prospectivePatientEmailAddress;
+  private String prospectivePatientName;
   @Enumerated
   private EligibilityStatus eligibilityStatus;
 
@@ -39,6 +41,8 @@ public class ConsultationResult {
 
   public ConsultationResult(ConsultationResultDTO consultationResultDTO) {
     this.answers = consultationResultDTO.getAnswers();
+    this.prospectivePatientEmailAddress = consultationResultDTO.getProspectivePatientEmailAddress();
+    this.prospectivePatientName = consultationResultDTO.getProspectivePatientName();
   }
 
 }
