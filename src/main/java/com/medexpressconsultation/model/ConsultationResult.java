@@ -1,13 +1,23 @@
 package com.medexpressconsultation.model;
 
 import com.medexpressconsultation.dto.ConsultationResultDTO;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+/**
+ * The result of a consultation regarding a condition.
+ */
+@Getter
+@Setter
 @Entity
 public class ConsultationResult {
 
@@ -15,9 +25,14 @@ public class ConsultationResult {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @ElementCollection
+  @CollectionTable(name = "answer", joinColumns = @JoinColumn(name = "consultation_id"))
   private List<Answer> answers;
+  @Enumerated
   private EligibilityStatus eligibilityStatus;
 
+  /**
+   * Required for jackson
+   */
   public ConsultationResult() {
   }
 
@@ -25,23 +40,4 @@ public class ConsultationResult {
     this.answers = consultationResultDTO.getAnswers();
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public List<Answer> getAnswers() {
-    return null;
-  }
-
-  public void setAnswers(List<Answer> answers) {
-    this.answers = answers;
-  }
-
-  public EligibilityStatus getEligibilityStatus() {
-    return eligibilityStatus;
-  }
 }

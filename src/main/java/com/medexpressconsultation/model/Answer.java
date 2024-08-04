@@ -1,35 +1,26 @@
 package com.medexpressconsultation.model;
 
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
+/**
+ * An answer given as part of a consultation
+ */
+@Getter
+@Setter
 @Embeddable
 public class Answer {
 
   private Long questionId;
-  private Boolean answer; // null if unanswered
+  private Boolean responseRequiredForMedication;
+  private Boolean yesNoValue;
+  private String text;
 
+  /**
+   * Required for jackson instantiation
+   */
   public Answer() {
-  }
-
-  public Answer(Long questionId, Boolean answer) {
-    this.questionId = questionId;
-    this.answer = answer;
-  }
-
-  public Long getQuestionId() {
-    return questionId;
-  }
-
-  public void setQuestionId(Long questionId) {
-    this.questionId = questionId;
-  }
-
-  public Boolean getAnswer() {
-    return answer;
-  }
-
-  public void setAnswer(Boolean value) {
-    this.answer = value;
   }
 
 }

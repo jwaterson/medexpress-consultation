@@ -28,7 +28,7 @@ sequenceDiagram
   WebApp ->> Customer: Displays Questions
   Customer ->> WebApp: Submits Answers
   rect rgba(0, 255, 0, 0.1)
-  WebApp ->> Backend: POST /consultation (with Answers)
+  WebApp ->> Backend: POST /process (with Answers)
   Backend ->> Backend: Processes Answers
   Backend ->> WebApp: Returns Eligibility Status
   end
@@ -43,11 +43,20 @@ sequenceDiagram
 
 ## Design
 
-A select few explanations follow, outlining the rationale underpinning some of the design 
-decisions made:
+### Assumptions
 
-- Questions could merit their own table, however, as they are only used, currently, within the
-context of a condition's consultations, they are stored as a collection within the Condition table.
+A select few explanations follow, outlining the rationale underpinning some of the less obvious
+design decisions made:
+
+- It is assumed that the Condition id attribute is available to the frontend when the user sends 
+the precursory "Start Consultation" request and therefore can be sent as a path variable to 
+`/consultation/{conditionId}/questions` when retrieving consultation questions. _If this were not 
+the case, we could perhaps assume the name attribute is available and join the Condition and 
+Question tables on the conditionId attribute to find matching Question entities._
+
+- All questions are framed such that yes/no answers (with the option for adding supporting text) are
+expected. This is primarily for simplicity's sake given the project's 2-3 hour time-box 
+recommendation.
 
 ## Tech
 
@@ -60,14 +69,14 @@ use, over Java 17.
   - ease of development (takes care of a lot of boilerplate)
   - embedded server included
   - by virtue of the task brief, there is no existing code to have to integrate with. Had this been 
-  posed as a feature to add to a modulith, this MVP might have been written as a module within said 
-  modulith.
+  posed as a feature to add to, say, a modulith, this MVP might have been written as a module 
+  within said modulith.
 - Maven is used as a build tool primarily because it is the option with which I am most familiar. 
-Additionally, it has an excellent ecosystem and is popular enough so that it is likely that any 
-future developers working on this project, would also be familiar with it.
+It also has an excellent ecosystem and is popular enough so that it is likely that any future 
+developers working on this project, would also be familiar with it.
 - H2 in-memory storage was used as a means to keep the service's data access uncomplicated and fast. 
 H2 possesses enough functionality so that data access can, at least to some degree, be realistically 
-emulated.
+emulated for this MVP.
 
 ## Running Locally
 
@@ -92,8 +101,8 @@ mvn spring-boot:run
 
 ## Ideas for Extension
 
-1. Save partial consultation result if form abandoned before submission. This of course, may require 
-reauthentication for resumption.
+1. Save partial consultation result if the form is abandoned before submission. This of course, may 
+require re-authentication for resumption.
 2. Tooling for support users to perform CRUD ops on:
    1. conditions (inc. questions)
    2. users

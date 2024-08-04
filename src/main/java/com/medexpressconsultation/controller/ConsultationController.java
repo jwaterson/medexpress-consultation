@@ -32,13 +32,13 @@ public class ConsultationController {
   }
 
   @GetMapping("/{conditionId}/questions")
-  public ResponseEntity<List<QuestionDTO>> getQuestionsByCondition(@PathVariable Long conditionId) {
+  public ResponseEntity<List<QuestionDTO>> getQuestionsByConditionId(@PathVariable Long conditionId) {
     return new ResponseEntity<>(questionService.getQuestionsByConditionId(conditionId),
         HttpStatus.OK);
   }
 
   @PostMapping("/process")
-  public ResponseEntity<EligibilityStatus> saveConsultationResult(
+  public ResponseEntity<EligibilityStatus> processConsultationResult(
       @RequestBody ConsultationResultDTO consultationResultDTO) {
     ConsultationResult consultationResult = consultationResultService.processConsultationResult(
         consultationResultDTO);

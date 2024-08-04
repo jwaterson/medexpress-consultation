@@ -1,18 +1,34 @@
--- Create table for Condition
+-- Data used for testing
+
 CREATE TABLE condition
 (
     id   BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
-
--- Create table for Question
 CREATE TABLE question
 (
-    id           BIGINT AUTO_INCREMENT PRIMARY KEY,
-    text         VARCHAR(255),
-    type         VARCHAR(50),
-    condition_id BIGINT,
+    id                BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ordinal           BIGINT,
+    text              VARCHAR(255),
+    type              VARCHAR(50),
+    response_required BOOLEAN,
+    condition_id      BIGINT,
     FOREIGN KEY (condition_id) REFERENCES condition (id)
-)
-;
+);
+
+CREATE TABLE consultation_result
+(
+    id                 BIGINT AUTO_INCREMENT PRIMARY KEY,
+    eligibility_status VARCHAR(255)
+);
+
+CREATE TABLE answer
+(
+    consultation_id   BIGINT,
+    question_id       BIGINT,
+    response_required BOOLEAN,
+    yes_no_value      BOOLEAN,
+    text              VARCHAR(255),
+    FOREIGN KEY (consultation_id) REFERENCES consultation_result (id)
+);
