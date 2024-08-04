@@ -43,10 +43,15 @@ sequenceDiagram
 
 ## Design
 
-### Assumptions
-
 A select few explanations follow, outlining the rationale underpinning some of the less obvious
 design decisions made:
+
+- It is assumed that the frontend validates the consultation result's prospective patient email 
+address and name.
+
+- It is assumed that a prospective patient doesn't need to sign-up/login to submit a consultation 
+result. The requirement for sign-up/login would only arise at the point where a prospective patient
+becomes a patient (i.e. point of payment for any medication for which they are deemed eligible).
 
 - It is assumed that the condition id attribute is already available to the frontend when the user sends 
 the precursory "Start Consultation" request and therefore can be sent as a path variable to 
@@ -102,11 +107,29 @@ mvn clean install
 mvn spring-boot:run
 ```
 
+### Exercising the API
+
+Below are some examples of ways in which the API can be exercised. I have taken the liberty of 
+adding example data (see [data.sql](src/main/resources/data.sql) and 
+[schema.sql](src/main/resources/schema.sql)) for use in this manner. 
+
+_[cURL](https://curl.se/) is used for demonstration purposes (you'll need to paste these into your 
+own cmd line tool to run them):_
+
+An example get request for a consultation's questions:
+```
+curl -X GET "http://localhost:8080/consultation/1/questions"
+```
+An example post request, submitting a consultation:
+```
+curl -X POST "http://localhost:8080/consultation/process" -H "Content-Type: application/json" -d "{\"prospectivePatientEmailAddress\": \"asthmasufferer92@gmail.com\", \"prospectivePatientName\": \"Jason Wheeze\", \"answers\": [{\"questionId\": 1, \"responseRequiredForMedication\": true, \"text\": \"aye\", \"yesNoValue\": true}, {\"questionId\": 2, \"responseRequiredForMedication\": null, \"text\": \"I smoked for 10 years\", \"yesNoValue\": true}]}"
+```
+
+
 ## Ideas for Extension
 
-1. Save partial consultation result if the form is abandoned before submission. This of course, may 
-require re-authentication for resumption.
-2. Tooling for support users to perform CRUD ops on:
-   1. conditions (inc. questions)
-   2. users
-   3. etc.
+1. Save partial consultation result if the form is abandoned before submission (ideally cached in 
+some way, for some period of time).
+2. Tooling for support users to perform CRUD ops on the main types where appropriate (Condition, 
+Question, etc.)
+3. 
