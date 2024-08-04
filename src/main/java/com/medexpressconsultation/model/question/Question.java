@@ -2,6 +2,7 @@ package com.medexpressconsultation.model.question;
 
 import com.medexpressconsultation.dto.QuestionDTO;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Question {
    */
   private int ordinal;
   private String text;
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   private QuestionType questionType;
   private Boolean responseRequiredForMedication; // null indicates no particular response required
   private Long conditionId;
