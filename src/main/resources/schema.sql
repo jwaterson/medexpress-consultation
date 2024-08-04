@@ -8,12 +8,12 @@ CREATE TABLE condition
 
 CREATE TABLE question
 (
-    id                BIGINT AUTO_INCREMENT PRIMARY KEY,
-    ordinal           BIGINT,
-    text              VARCHAR(255),
-    type              VARCHAR(50),
-    response_required BOOLEAN,
-    condition_id      BIGINT,
+    id                               BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ordinal                          BIGINT,
+    text                             VARCHAR(255),
+    question_type                    VARCHAR(50),
+    response_required_for_medication BOOLEAN,
+    condition_id                     BIGINT,
     FOREIGN KEY (condition_id) REFERENCES condition (id)
 );
 
@@ -30,5 +30,6 @@ CREATE TABLE answer
     response_required BOOLEAN,
     yes_no_value      BOOLEAN,
     text              VARCHAR(255),
+    PRIMARY KEY (consultation_id, question_id),
     FOREIGN KEY (consultation_id) REFERENCES consultation_result (id)
 );
