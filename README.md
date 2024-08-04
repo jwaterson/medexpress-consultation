@@ -125,11 +125,24 @@ An example post request, submitting a consultation:
 curl -X POST "http://localhost:8080/consultation/process" -H "Content-Type: application/json" -d "{\"prospectivePatientEmailAddress\": \"asthmasufferer92@gmail.com\", \"prospectivePatientName\": \"Jason Wheeze\", \"answers\": [{\"questionId\": 1, \"responseRequiredForMedication\": true, \"text\": \"aye\", \"yesNoValue\": true}, {\"questionId\": 2, \"responseRequiredForMedication\": null, \"text\": \"I smoked for 10 years\", \"yesNoValue\": true}]}"
 ```
 
-
 ## Ideas for Extension
 
 1. Save partial consultation result if the form is abandoned before submission (ideally cached in 
 some way, for some period of time).
 2. Tooling for support users to perform CRUD ops on the main types where appropriate (Condition, 
 Question, etc.)
-3. 
+3. More sophisticated indicative eligibility messaging (e.g. if it can be inferred from the 
+prospective patient's answers that they are at serious risk, this should be relayed to them).
+4. A check should take place, when a consultation is submitted, to see whether there are any existing 
+consultation results for the same condition, with eligibility status UNDER_REVIEW and a matching 
+email address. If there is at least one such existing result and the answers differ at all, there 
+are several possible ways of handling this:
+   1. add some synchronisation mechanism which is set to "locked" if a doctor is currently reviewing a 
+   submitted consultation result. If the existing consultation result is locked, disallow the 
+   overwriting of the submitted consultation result; otherwise, permit the overwriting.
+   2. Disallow overwriting until the existing consultation result has been reviewed and a decision
+   reached (and email sent) by the reviewing doctor.
+
+## Open API Documentation
+
+For further API documentation, see the [OpenAPI Specification](spec.yaml).

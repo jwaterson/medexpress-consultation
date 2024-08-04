@@ -8,11 +8,15 @@ import lombok.Getter;
  */
 @Getter
 public enum EligibilityStatus {
-  ELIGIBLE(true, "A doctor has reviewed your ou are eligible for medication."),
-  INELIGIBLE(false, "You are not eligible for medication. Please consult your GP if you "
-      + "have further questions."),
-  UNDER_REVIEW(false, "You may be eligible for medication. A doctor is reviewing your "
-      + "answers to determine your eligibility for medication. You should hear back shortly.");
+  ELIGIBLE(true, """
+      A doctor has reviewed the answers you provided and has judged that you are eligible for \
+      medication."""),
+  INELIGIBLE(false, """
+      Based on the answers you have provided, you are not eligible for medication. Please consult \
+      your GP for further advice."""),
+  UNDER_REVIEW(false, """
+      Based on the answers you have provided, you may be eligible for medication. A doctor is \
+      reviewing your answers to confirm your eligibility. You should hear back shortly by email.""");
 
   private final boolean eligible;
   @JsonValue

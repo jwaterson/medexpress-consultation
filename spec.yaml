@@ -1,0 +1,93 @@
+openapi: "3.0.3"
+info:
+  title: "MedExpress Consultation API"
+  description: ""
+  version: "1.0.0"
+servers:
+  - url: "https://medexpress_consultation"
+paths:
+  /consultation/{conditionId}/questions:
+    get:
+      summary: "GET consultation/{conditionId}/questions"
+      operationId: "getQuestionsByConditionId"
+      parameters:
+        - name: "conditionId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/QuestionDTO"
+  /consultation/process:
+    post:
+      summary: "POST consultation/process"
+      operationId: "processConsultationResult"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConsultationResultDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+                enum:
+                  - "ELIGIBLE"
+                  - "INELIGIBLE"
+                  - "UNDER_REVIEW"
+components:
+  schemas:
+    QuestionDTO:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        ordinal:
+          type: "integer"
+          format: "int32"
+        text:
+          type: "string"
+        questionType:
+          type: "string"
+        conditionId:
+          type: "integer"
+          format: "int64"
+        responseRequiredForMedication:
+          type: "boolean"
+    Answer:
+      type: "object"
+      properties:
+        questionId:
+          type: "integer"
+          format: "int64"
+        responseRequiredForMedication:
+          type: "boolean"
+        yesNoValue:
+          type: "boolean"
+        text:
+          type: "string"
+    ConsultationResultDTO:
+      type: "object"
+      properties:
+        answers:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Answer"
+        prospectivePatientEmailAddress:
+          type: "string"
+        prospectivePatientName:
+          type: "string"
+  
