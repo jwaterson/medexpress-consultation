@@ -90,4 +90,6 @@ components:
           type: "string"
         prospectivePatientName:
           type: "string"
-  
+        timeSubmitted:
+          type: "string"
+          format: "date-time"
