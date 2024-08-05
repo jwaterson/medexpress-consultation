@@ -63,8 +63,7 @@ Question tables on the conditionId attribute to find matching Question entities.
 expected. This is primarily for simplicity's sake given the project's restrictive time-boxing.
 
 - Questions might have been stored as embedded entities within their owning consultation entities, 
-however, question's id attribute is used as a reference point for answers, so there needed to be 
-
+however, question's id attribute is used as a reference point for answers, so there needed to be.
 
 ## Tech
 
@@ -127,24 +126,33 @@ curl -X POST "http://localhost:8080/consultation/process" -H "Content-Type: appl
 
 ## Ideas for Extension
 
+Will do:
+
+1. A check should take place, when a consultation is submitted, to see whether there are any existing
+   consultation results for the same condition, with eligibility status UNDER_REVIEW and a matching
+   email address. If there is at least one such existing result and the answers differ at all, there
+   are several possible ways of handling this:
+    1. add some synchronisation mechanism which is set to "locked"  if a doctor is currently reviewing a
+       submitted consultation result (perhaps denoted by the addition of another eligibility status,
+       differentiating between pre-review (pending) and in review (under review)). If the existing
+       consultation result is locked, disallow the overwriting of the submitted consultation result;
+       otherwise, permit the overwriting if the answers differ at all.
+    2. Disallow overwriting until the existing consultation result has been reviewed and a decision
+       reached (and email sent) by the reviewing doctor.
+2. Add program argument option for enabling/disabling population of test data 
+([data.sql](src/main/resources/data.sql) and [schema.sql](src/main/resources/schema.sql))
+3. Further testing (beyond unit testing; int tests, controller tests etc.). As the application
+   grows, would want load/performance testing too (e.g. Gatling)
+4. More sophisticated indicative eligibility messaging (e.g. if it can be inferred from the
+   prospective patient's answers that they are at serious risk, this should be relayed to them).
+
+Could do:
+
 1. Save partial consultation result if the form is abandoned before submission (ideally cached in 
 some way, for some period of time).
 2. Tooling for support users to perform CRUD ops on the main types where appropriate (Condition, 
 Question, etc.)
-3. More sophisticated indicative eligibility messaging (e.g. if it can be inferred from the 
-prospective patient's answers that they are at serious risk, this should be relayed to them).
-4. A check should take place, when a consultation is submitted, to see whether there are any existing 
-consultation results for the same condition, with eligibility status UNDER_REVIEW and a matching 
-email address. If there is at least one such existing result and the answers differ at all, there 
-are several possible ways of handling this:
-   1. add some synchronisation mechanism which is set to "locked" if a doctor is currently reviewing a 
-   submitted consultation result. If the existing consultation result is locked, disallow the 
-   overwriting of the submitted consultation result; otherwise, permit the overwriting.
-   2. Disallow overwriting until the existing consultation result has been reviewed and a decision
-   reached (and email sent) by the reviewing doctor.
-5. Further testing (beyond unit testing; int tests, controller tests etc.). As the application 
-grows, would want load/performance testing too (e.g. Gatling)
-6. Add logging for better application visibility and ease of debugging if an issue arises.
+3. Add logging for better application visibility and ease of debugging if an issue arises.
 
 ## Open API Documentation
 
