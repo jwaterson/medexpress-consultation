@@ -29,34 +29,39 @@ class ConsultationResultServiceTest {
   @InjectMocks
   private ConsultationResultService consultationResultService;
 
-  private Answer answer1;
-  private Answer answer2;
-  private Answer answer3;
-  private Answer answer4;
+  private Answer eligibleAnswer1;
+  private Answer eligibleAnswer2;
+  private Answer eligibleAnswer3;
+  private Answer ineligibleAnswer1;
+  private Answer ineligibleAnswer2;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    answer1 = new Answer();
-    answer1.setResponseRequiredForMedication(true);
-    answer1.setYesNoValue(true);
+    eligibleAnswer1 = new Answer();
+    eligibleAnswer1.setResponseRequiredForMedication(true);
+    eligibleAnswer1.setYesNoValue(true);
 
-    answer2 = new Answer();
-    answer2.setResponseRequiredForMedication(null); // doesn't impact medication eligibility
-    answer2.setYesNoValue(true);
+    eligibleAnswer2 = new Answer();
+    eligibleAnswer2.setResponseRequiredForMedication(null); // doesn't impact medication eligibility
+    eligibleAnswer2.setYesNoValue(true);
 
-    answer3 = new Answer();
-    answer3.setResponseRequiredForMedication(true);
-    answer3.setYesNoValue(false);
+    eligibleAnswer3 = new Answer();
+    eligibleAnswer3.setResponseRequiredForMedication(false);
+    eligibleAnswer3.setYesNoValue(false);
 
-    answer4 = new Answer();
-    answer4.setResponseRequiredForMedication(false);
-    answer4.setYesNoValue(false);
+    ineligibleAnswer1 = new Answer();
+    ineligibleAnswer1.setResponseRequiredForMedication(true);
+    ineligibleAnswer1.setYesNoValue(false);
+
+    ineligibleAnswer2 = new Answer();
+    ineligibleAnswer2.setResponseRequiredForMedication(true);
+    ineligibleAnswer2.setYesNoValue(null);
   }
 
   @Test
-  void testProcessConsultationResult() {
-    List<Answer> answers = Arrays.asList(answer1, answer2);
+  void processConsultationResult_dtoPassed_resultSavedAndConsultationResultReturned() {
+    List<Answer> answers = Arrays.asList(eligibleAnswer1, eligibleAnswer2);
 
     ConsultationResult consultationResult = new ConsultationResult();
     consultationResult.setAnswers(answers);
@@ -76,7 +81,7 @@ class ConsultationResultServiceTest {
 
   @Test
   void determineEligibility_responseRequiredNullOrMatchingYesNoValue_underReview() {
-    List<Answer> answers = Arrays.asList(answer1, answer2);
+    List<Answer> answers = Arrays.asList(eligibleAnswer1, eligibleAnswer2);
 
     ConsultationResult consultationResult = new ConsultationResult();
     consultationResult.setAnswers(answers);
@@ -94,7 +99,7 @@ class ConsultationResultServiceTest {
   @Test
   void determineEligibility_responseRequiredDoesNotMatchYesNoValue_ineligible() {
     ConsultationResult consultationResult = new ConsultationResult();
-    consultationResult.setAnswers(List.of(answer3));
+    consultationResult.setAnswers(List.of(ineligibleAnswer1));
 
     consultationResultService.determineEligibility(consultationResult);
 
@@ -104,10 +109,20 @@ class ConsultationResultServiceTest {
   @Test
   void determineEligibility_responseRequiredDoesMatchYesNoValue_underReview() {
     ConsultationResult consultationResult = new ConsultationResult();
-    consultationResult.setAnswers(List.of(answer4));
+    consultationResult.setAnswers(List.of(eligibleAnswer3));
 
     consultationResultService.determineEligibility(consultationResult);
 
     assertEquals(EligibilityStatus.UNDER_REVIEW, consultationResult.getEligibilityStatus());
+  }
+
+  @Test
+  void determineEligibility_yesNoValueNull_ineligible() {
+    ConsultationResult consultationResult = new ConsultationResult();
+    consultationResult.setAnswers(List.of(eligibleAnswer3, ineligibleAnswer2));
+
+    consultationResultService.determineEligibility(consultationResult);
+
+    assertEquals(EligibilityStatus.INELIGIBLE, consultationResult.getEligibilityStatus());
   }
 }

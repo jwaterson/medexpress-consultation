@@ -6,6 +6,7 @@ import com.medexpressconsultation.model.question.Question;
 import com.medexpressconsultation.repository.QuestionRepository;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,8 @@ public class QuestionService {
     this.questionMapper = questionMapper;
   }
 
-  public List<QuestionDTO> getQuestionsByConditionId(Long conditionId) {
+  public List<QuestionDTO> getQuestionsByConditionId(Long conditionId)
+      throws NoSuchElementException {
     return questionRepository
         .findByConditionId(conditionId)
         .orElseThrow()

@@ -122,7 +122,7 @@ curl -X GET "http://localhost:8080/consultation/1/questions"
 ```
 An example post request, submitting a consultation:
 ```
-curl -X POST "http://localhost:8080/consultation/process" -H "Content-Type: application/json" -d "{\"prospectivePatientEmailAddress\": \"asthmasufferer92@gmail.com\", \"prospectivePatientName\": \"Jason Wheeze\", \"answers\": [{\"questionId\": 1, \"responseRequiredForMedication\": true, \"text\": \"aye\", \"yesNoValue\": true}, {\"questionId\": 2, \"responseRequiredForMedication\": null, \"text\": \"I smoked for 10 years\", \"yesNoValue\": true}]}"
+curl -X POST "http://localhost:8080/consultation/process" -H "Content-Type: application/json" -d "{\"prospectivePatientEmailAddress\": \"asthmasufferer92@gmail.com\", \"prospectivePatientName\": \"Jason Bourne\", \"answers\": [{\"questionId\": 1, \"responseRequiredForMedication\": true, \"text\": \"aye\", \"yesNoValue\": true}, {\"questionId\": 2, \"responseRequiredForMedication\": null, \"text\": \"I smoked for 10 years\", \"yesNoValue\": true}]}"
 ```
 
 ## Ideas for Extension
@@ -142,6 +142,9 @@ are several possible ways of handling this:
    overwriting of the submitted consultation result; otherwise, permit the overwriting.
    2. Disallow overwriting until the existing consultation result has been reviewed and a decision
    reached (and email sent) by the reviewing doctor.
+5. Further testing (beyond unit testing; int tests, controller tests etc.). As the application 
+grows, would want load/performance testing too (e.g. Gatling)
+6. Add logging for better application visibility and ease of debugging if an issue arises.
 
 ## Open API Documentation
 

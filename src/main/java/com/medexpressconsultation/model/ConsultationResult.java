@@ -9,6 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import java.util.Date;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +35,8 @@ public class ConsultationResult {
   private String prospectivePatientName;
   @Enumerated
   private EligibilityStatus eligibilityStatus;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date timeSubmitted;
 
   /**
    * Required for jackson
@@ -43,6 +48,7 @@ public class ConsultationResult {
     this.answers = consultationResultDTO.getAnswers();
     this.prospectivePatientEmailAddress = consultationResultDTO.getProspectivePatientEmailAddress();
     this.prospectivePatientName = consultationResultDTO.getProspectivePatientName();
+    this.timeSubmitted = new Date();
   }
 
 }

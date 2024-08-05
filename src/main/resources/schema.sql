@@ -19,9 +19,14 @@ CREATE TABLE question
 
 CREATE TABLE consultation_result
 (
-    id                 BIGINT AUTO_INCREMENT PRIMARY KEY,
-    eligibility_status VARCHAR(255)
+    id                                BIGINT AUTO_INCREMENT PRIMARY KEY,
+    eligibility_status                VARCHAR(255),
+    prospective_patient_email_address VARCHAR(50),
+    prospective_patient_name          VARCHAR(100),
+    time_submitted                    TIMESTAMP
 );
+
+
 
 CREATE TABLE answer
 (

@@ -36,7 +36,8 @@ public class ConsultationResultService {
   /**
    * A method which stands as a placeholder for determining indicative eligibility for medication
    * (needs confirmation with a doctor following consultation). It is expected that indicative
-   * eligibility would eventually be determined by more nuanced means.
+   * eligibility would eventually be determined by more nuanced means and deliver a more
+   * detailed eligibility status.
    *
    * @param consultationResult the consultation result whose eligibility needs determined
    */
