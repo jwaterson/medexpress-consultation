@@ -47,10 +47,11 @@ A select few explanations follow, outlining the rationale underpinning some of t
 design decisions made:
 
 - It is assumed that the frontend validates the consultation result's prospective patient email 
-address and name.
+address and name. This validation could and should be reinforced by this service, but such measure
+has been omitted in the interest of time for this MVP.
 
 - It is assumed that a prospective patient doesn't need to sign-up/login to submit a consultation 
-result. The requirement for sign-up/login would only arise at the point where a prospective patient
+result. The requirement for sign-up/login would only arise at the point where a _prospective_ patient
 becomes a patient (i.e. point of payment for any medication for which they are deemed eligible).
 
 - It is assumed that the condition id attribute is already available to the frontend when the user sends 
@@ -63,7 +64,8 @@ Question tables on the conditionId attribute to find matching Question entities.
 expected. This is primarily for simplicity's sake given the project's restrictive time-boxing.
 
 - Questions might have been stored as embedded entities within their owning consultation entities, 
-however, question's id attribute is used as a reference point for answers, so there needed to be.
+however, question's id attribute is used as a reference point for answers, so it was decided that
+it made sense for them to have their own table.
 
 ## Tech
 
@@ -153,6 +155,9 @@ some way, for some period of time).
 2. Tooling for support users to perform CRUD ops on the main types where appropriate (Condition, 
 Question, etc.)
 3. Add logging for better application visibility and ease of debugging if an issue arises.
+4. Add the concept of universal questions, common to most/all consultations, which do not possess a 
+condition id (e.g. "Do you consent to a doctor reviewing your answers?"). These could perhaps be 
+cached to reduce consultation load time.
 
 ## Open API Documentation
 
